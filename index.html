@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV - Joanna Safarian</title>
+  <style>
+    :root {
+      --primary-purple: #B47EE5;
+      --text-dark: #1F2937;
+      --text-muted: #4B5563;
+      --bg-page: #FFFFFF;
+      --bg-outer: #EEF2F6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: var(--bg-outer);
+      color: var(--text-dark);
+      line-height: 1.4;
+      font-size: 9.5pt;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* Strona A4 */
+    .page {
+      width: 210mm;
+      height: 297mm;
+      background: var(--bg-page);
+      margin: 15px auto;
+      padding: 15mm;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Układ dwukolumnowy */
+    .cv-container {
+      display: flex;
+      flex: 1;
+      width: 100%;
+    }
+
+    .left-col {
+      width: 31%;
+      padding-right: 16px;
+      border-right: 1.5px solid var(--primary-purple);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .right-col {
+      width: 69%;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Sekcja zdjęcia i imienia */
+    .photo-wrapper {
+      position: relative;
+      width: 125px;
+      height: 135px;
+      margin-bottom: 18px;
+    }
+
+    .photo-accent {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 100%;
+      height: 100%;
+      background-color: var(--primary-purple);
+      z-index: 1;
+    }
+
+    .photo-box {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background-color: #E5E7EB;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: #6B7280;
+      font-size: 8pt;
+      text-align: center;
+    }
+
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+    }
+
+    .name-block {
+      margin-bottom: 22px;
+    }
+
+    .name-block h1 {
+      font-size: 21pt;
+      font-weight: 700;
+      line-height: 1.15;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .name-block .role {
+      font-size: 10.5pt;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* Nagłówki sekcji z fioletową etykietą i linią */
+    .section-header {
+      border-top: 1.5px solid var(--primary-purple);
+      margin-top: 14px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .section-header:first-child {
+      margin-top: 0;
+    }
+
+    .section-tag {
+      display: inline-block;
+      background-color: var(--primary-purple);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 9pt;
+      padding: 3px 10px;
+      letter-spacing: 0.2px;
+    }
+
+    /* Listy w lewej kolumnie */
+    .left-list {
+      list-style: none;
+      margin-bottom: 6px;
+    }
+
+    .left-list li {
+      font-size: 8.8pt;
+      color: var(--text-muted);
+      margin-bottom: 4.5px;
+      line-height: 1.3;
+    }
+
+    /* Dane kontaktowe w prawej kolumnie */
+    .contact-list {
+      list-style: none;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid var(--primary-purple);
+    }
+
+    .contact-list li {
+      display: flex;
+      align-items: center;
+      font-size: 8.8pt;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    .contact-list li svg {
+      width: 13px;
+      height: 13px;
+      margin-right: 9px;
+      fill: var(--primary-purple);
+      flex-shrink: 0;
+    }
+
+    .contact-list a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Podsumowanie (Summary) */
+    .summary {
+      font-size: 9pt;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-bottom: 16px;
+    }
+
+    .summary strong {
+      color: #111827;
+      font-weight: 700;
+    }
+
+    /* Doświadczenie zawodowe i Edukacja */
+    .entry-item {
+      margin-bottom: 14px;
+    }
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 5px;
+    }
+
+    .entry-title-group {
+      max-width: 75%;
+    }
+
+    .entry-title {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.25;
+    }
+
+    .entry-subtitle {
+      font-size: 9pt;
+      color: var(--primary-purple);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .entry-date {
+      text-align: right;
+      font-size: 8.5pt;
+      color: var(--text-muted);
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    .entry-bullets {
+      list-style-type: disc;
+      padding-left: 15px;
+      color: var(--text-muted);
+      font-size: 8.7pt;
+    }
+
+    .entry-bullets li {
+      margin-bottom: 3px;
+      line-height: 1.35;
+    }
+
+    .edu-note {
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: #111827;
+      margin-top: 4px;
+    }
+
+    .edu-subnote {
+      font-size: 8.5pt;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* Ustawienia druku PDF */
+    @media print {
+      body {
+        background: none;
+      }
+      .page {
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+      }
+      .page:last-child {
+        page-break-after: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= STRONA 1 ================= -->
+  <div class="page">
+    <div class="cv-container">
+      
+      <!-- LEWA KOLUMNA (Strona 1) -->
+      <aside class="left-col">
+        <div class="photo-wrapper">
+          <div class="photo-accent"></div>
+          <div class="photo-box">
+           <img src="img0353631.jpg" alt="Joanna Safarian">
+           </div>
+        </div>
+
+        <div class="name-block">
+          <h1>Joanna<br>Safarian</h1>
+          <div class="role">SAFe Scrum Master<br>Senior Support Engineer</div>
+        </div>
+
+        <div class="section-header">
+          <span class="section-tag">Languages</span>
+        </div>
+        <ul class="left-list">
+          <li>Polish</li>
+          <li>English</li>
+          <li>Russian</li>
+        </ul>
+
+        <div class="section-header">
+          <span class="section-tag">Certifications</span>
+        </div>
+        <ul class="left-list">
+          <li>ITIL® 4 Foundation</li>
+          <li>SAFe Scrum Master<br>Scaled Agile</li>
+          <li>Javascript Fullstack Developer<br>GoIT</li>
+          <li>Power Bi Developer<br>Comarch</li>
+          <li>Driver Licence Category AM, B, B1 </li>
+          <li>HTML AND CSS<br>GoIT</li>
+          <li>Effective Helpdesk<br>Altkom Akademia</li>
+          <li>Agency Licenses - OWFCA<br>UKNF: The Polish Financial Supervision Authority</li>
+        </ul>
+
+        <div class="section-header">
+          <span class="section-tag">IT skills</span>
+        </div>
+        <ul class="left-list">
+          <li>Endpoint Security</li>
+          <li>Scripting</li>
+          <li>JAMF Pro</li>
+          <li>TCP/IP Networking</li>
+          <li>Office 365 Admin</li>
+          <li>SCCM</li>
+          <li>PowerShell</li>
+          <li>Azure AD</li>
+          <li>Microsoft Intune</li>
+          <li>ITIL Framework</li>
+          <li>Procreate &amp; digital drawing</li>
+          <li>HTML&amp;CSS</li>
+          <li>JavaScript</li>
+          <li>React</li>
+          <li>Node.js</li>
+        </ul>
+      </aside>
+
+      <!-- PRAWA KOLUMNA (Strona 1) -->
+      <main class="right-col">
+        <ul class="contact-list">
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+            +48 794-615-199
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <a href="mailto:Joanna.Safarian@gmail.com">Joanna.Safarian@gmail.com</a>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
+            05-825 Grodzisk Mazowiecki
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8a1 1 0 001 1h1a1 1 0 001-1v-1h12v1a1 1 0 001 1h1a1 1 0 001-1v-8l-2.08-5.99zM6.5 16a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+            Category AM, B, B1
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6z"/></svg>
+            Polish
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg>
+            <a href="https://github.com/YoananaoY" target="_blank">github.com/YoananaoY</a>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zM9 17H6.5v-7H9v7zM7.75 8.73a1.5 1.5 0 110-3 1.5 1.5 0 010 3zM18 17h-2.5v-3.5c0-1.1-.9-2-2-2s-2 .9-2 2V17H9v-7h2.5v1.1c.5-.7 1.4-1.1 2.3-1.1 1.8 0 3.2 1.4 3.2 3.2V17z"/></svg>
+            <a href="https://www.linkedin.com/in/joannasafarian/" target="_blank">linkedin.com/in/joannasafarian/</a>
+          </li>
+        </ul>
+
+        <p class="summary">
+          <strong>Certified SAFe® Scrum Master</strong> with extensive experience in <strong>Windows</strong> and <strong>MacOS</strong> environments across complex international infrastructures and knowledge in programming in JavaScript.<br>
+          Expert in incident management, technical troubleshooting, and Agile methodologies.<br>
+          Proven ability to bridge technical operations with team leadership to drive seamless system performance and deliver high-quality, user-focused support.
+        </p>
+
+        <div class="section-header">
+          <span class="section-tag">Work experience</span>
+        </div>
+
+        <!-- Stanowisko 1 -->
+        <div class="entry-item">
+          <div class="entry-header">
+            <div class="entry-title-group">
+              <div class="entry-title">Senior Support Engineer Windows &amp; MacOS</div>
+              <div class="entry-subtitle">Nordea Bank, Remote</div>
+            </div>
+            <div class="entry-date">
+              January 2024<br>Current
+            </div>
+          </div>
+          <ul class="entry-bullets">
+            <li>Provide support to end users through all appropriate channels such as phone, chat, or ITSM tools for Nordea employees in Norway, Sweden, Denmark and Finland</li>
+            <li>Participate in Projects - Apple Support</li>
+            <li>Interact with second-line support and external vendors in tasks related to IT infrastructure and applications.</li>
+            <li>Diagnose software and hardware problems in order to find the right solution in both operating systems MacOS and Windows, IpadOS, iOS.</li>
+            <li>Register, prioritize, and document all incidents reported to the service desk following incident management procedure.</li>
+            <li>Writing technical documentation in confluence</li>
+          </ul>
+        </div>
+
+        <!-- Stanowisko 2 (Część 1) -->
+        <div class="entry-item" style="margin-bottom: 0;">
+          <div class="entry-header">
+            <div class="entry-title-group">
+              <div class="entry-title">Support Engineer</div>
+              <div class="entry-subtitle">Euro-Net sp. z o.o</div>
+            </div>
+            <div class="entry-date">
+              September 2021<br>December 2023
+            </div>
+          </div>
+          <ul class="entry-bullets">
+            <li>Proactively monitoring critical systems to ensure uninterrupted business processes.</li>
+            <li>Delivering technical support for the setup and maintenance of conference rooms.</li>
+            <li>Efficiently managing local and remote software installations.</li>
+            <li>Contributing to the successful establishment of new company locations and branches.</li>
+            <li>Crafting comprehensive technical documentation for reference and guidance.</li>
+            <li>Tailoring network configurations for devices to ensure seamless operations.</li>
+            <li>Creating and maintaining technical documentation and manuals using Confluence.</li>
+            <li>Overseeing user and device management within the Active Directory environment.</li>
+            <li>Troubleshooting technical issues encompassing Microsoft products and diverse applications.</li>
+            <li>Managing incident and task queues effectively using Jira Service Desk.</li>
+          </ul>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ================= STRONA 2 ================= -->
+  <div class="page">
+    <div class="cv-container">
+      
+      <!-- LEWA KOLUMNA (Strona 2 - kontynuacja IT skills + Interests) -->
+      <aside class="left-col">
+        <ul class="left-list" style="margin-top: 2px;">
+ 	  <li>PostgreSQL</li>
+          <li>MS Office</li>
+          <li>MS Windows</li>
+          <li>MacOS, iOS</li>
+          <li>Linux</li>
+          <li>SAP</li>
+          <li>Jira</li>
+          <li>Confluence</li>
+          <li>Wordpress</li>
+          <li>Postman</li>
+        </ul>
+
+        <div class="section-header">
+          <span class="section-tag">Interests</span>
+        </div>
+        <ul class="left-list">
+          <li>New technologies</li>
+          <li>Computers</li>
+          <li>Programming</li>
+          <li>True Crime</li>
+          <li>Cars</li>
+          <li>Creating (drawing, painting, sculpting, crafting)</li>
+          <li>Design, Color composition, Interior decoration</li>
+          <li>Spending time in nature</li>
+          <li>Animals</li>
+          <li>Piercings &amp; Tattoos</li>
+        </ul>
+      </aside>
+
+      <!-- PRAWA KOLUMNA (Strona 2) -->
+      <main class="right-col">
+        
+        <!-- Stanowisko 2 (Kontynuacja punktorów) -->
+        <div class="entry-item">
+          <ul class="entry-bullets">
+            <li>Offering assistance and guidance to users while utilizing the SAP system (ERP, CRM, BCM).</li>
+            <li>Playing a key role in implementing cutting-edge business solutions.</li>
+            <li>Migrating user data to new systems with precision and data integrity.</li>
+            <li>Coordinating service requests for diagnosing, maintaining, and repairing computer hardware, including workstations, laptops, desktop printers, and multifunction devices.</li>
+            <li>Providing hands-on support for resolving VPN connectivity issues.</li>
+            <li>Expertise in performing OS installations, including Microsoft Windows 7, 8.1, 10, and 11.</li>
+            <li>Active participation in system migrations within the Microsoft Windows ecosystem.</li>
+            <li>Willingly taking on any additional tasks as directed by the supervisor.</li>
+          </ul>
+        </div>
+
+        <!-- Stanowisko 3 -->
+        <div class="entry-item">
+          <div class="entry-header">
+            <div class="entry-title-group">
+              <div class="entry-title">Team Leader of Financial Specialist</div>
+              <div class="entry-subtitle">Euro-Net sp. z o.o</div>
+            </div>
+            <div class="entry-date">
+              July 2019<br>September 2021
+            </div>
+          </div>
+          <ul class="entry-bullets">
+            <li>Team management of specialized employees</li>
+            <li>Onboarding of new personnel, training, recruitment</li>
+            <li>Supervision of team's work quality and procedures</li>
+            <li>Customer end support and communication</li>
+            <li>Collaboration with accounting and banking entities</li>
+            <li>Verification of banking/web application errors and reporting</li>
+            <li>Resolving customer/employee issues</li>
+          </ul>
+        </div>
+
+        <!-- Stanowisko 4 -->
+        <div class="entry-item">
+          <div class="entry-header">
+            <div class="entry-title-group">
+              <div class="entry-title">Store Manager</div>
+              <div class="entry-subtitle">Martes Sport</div>
+            </div>
+            <div class="entry-date">
+              March 2017<br>July 2019
+            </div>
+          </div>
+          <ul class="entry-bullets">
+            <li>Store and sales team management</li>
+            <li>Quality control of service and products</li>
+            <li>Collaboration with management and accounting</li>
+            <li>Customer service</li>
+            <li>Resolving customer/employee issues</li>
+          </ul>
+        </div>
+
+        <!-- EDUKACJA I KURSY -->
+        <div class="section-header">
+          <span class="section-tag">Education</span>
+        </div>
+
+        <div class="entry-item" style="margin-bottom: 10px;">
+          <div class="entry-header">
+            <div class="entry-title-group">
+              <div class="entry-title">Certified SAFe® Scrum Master</div>
+              <div class="entry-subtitle">SAFe by Scaled Agile, Inc.</div>
+            </div>
+            <div class="entry-date">
+              May 2024<br>May 2026
+            </div>
+          </div>
+        </div>
+
+        <div class="entry-item" style="margin-bottom: 10px;">
+          <div class="entry-header">
+            <div class="entry-title-group">
+              <div class="entry-title">Project Management - Robotics</div>
+              <div class="entry-subtitle">LeanSpin, Warsaw</div>
+            </div>
+            <div class="entry-date">
+              2024<br>2024
+            </div>
+          </div>
+          <div class="edu-note">Agile &amp; Scrum methods</div>
+        </div>
+
+        <div class="entry-item" style="margin-bottom: 10px;">
+          <div class="entry-header">
+            <div class="entry-title-group">
+              <div class="entry-title">Power BI - data analysis and visualization</div>
+              <div class="entry-subtitle">Comarch, Warsaw</div>
+            </div>
+            <div class="entry-date">
+              2022<br>2022
+            </div>
+          </div>
+        </div>
+
+        <div class="entry-item" style="margin-bottom: 10px;">
+          <div class="entry-header">
+            <div class="entry-title-group">
+              <div class="entry-title">Fullstack JavaScript Developer</div>
+              <div class="entry-subtitle">GoIT, Warszawa</div>
+            </div>
+            <div class="entry-date">
+              2024<br>2025
+            </div>
+          </div>
+        </div>
+
+        <div class="entry-item" style="margin-bottom: 10px;">
+          <div class="entry-header">
+            <div class="entry-title-group">
+              <div class="entry-title">Global business, finance and governance</div>
+              <div class="entry-subtitle">SGH Warsaw School of Economics</div>
+            </div>
+            <div class="entry-date">
+              October 2020<br>Current
+            </div>
+          </div>
+        </div>
+
+        <div class="entry-item" style="margin-bottom: 0;">
+          <div class="entry-header">
+            <div class="entry-title-group">
+              <div class="entry-title">Insurance Intermediary Agent</div>
+              <div class="entry-subtitle">KNF</div>
+            </div>
+            <div class="entry-date">
+              2018<br>2018
+            </div>
+          </div>
+          <div class="edu-subnote">OWFCA</div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+</body>
+</html>
